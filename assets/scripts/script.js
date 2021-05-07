@@ -1,4 +1,6 @@
 
+// Assignment Code
+let generateBtn = document.querySelector("#generate");
 let passwordLength;
 let passwordCharacterOptions=[];
 
@@ -8,12 +10,14 @@ function passwordLengthCriteria() {
   passwordLength=Number(lengthPrompt); //converting string input to number to validate
 
   if (lengthPrompt===null){
-    alert("If you change your mind, click 'Generate Password' again!")
+    alert("If you change your mind, click 'Generate Password' again!");
   } else if (passwordLength >=8 && passwordLength <= 128){
-      passwordCharacterCriteria();  
+      passwordCharacterCriteria();
+    // console.log("Run passwordCharacterCriteria");  
   } else if (!(passwordLength >=8 && passwordLength <= 128)){
       alert("Sorry, your selection does not meet password length requirements.  Please try again.");
   } 
+  return passwordLength;
 }
 
 function passwordCharacterCriteria() {
@@ -68,24 +72,30 @@ function passwordCharacterCriteria() {
   console.log(criteriaCounter);
 
   if (criteriaCounter===0) {
-    alert("Sorry, you must include at least 1 character type in your password.  Please try again.")
-  }
+    alert("Sorry, you must include at least 1 character type in your password.  Please try again.");
+  } 
+  return passwordCharacterOptions.length;
 }
 
-function generatePassword (passwordLength, passwordCharacterOptions) {
+function generatePassword() { 
+  passwordLengthCriteria();
   
-  const passwordArray = [];
-  for (let i=0; i<passwordLength; i++){
-    const characters = passwordCharacterOptions[Math.floor(Math.random() * passwordCharacterOptions.length)]
-    passwordArray.push(characters);
+  if (passwordLength>=8 && passwordLength<=128 && passwordCharacterOptions !== 0){
+    
+    const passwordArray = [];
+    for (let i=0; i<passwordLength; i++){
+      const characters = passwordCharacterOptions[Math.floor(Math.random() * passwordCharacterOptions.length)]
+      passwordArray.push(characters);
+    }
+    return passwordArray.join('');
+  } else {
+    return "Your Secure Password";
   }
-  return passwordArray.join('');
 }
 
 
-/*
-// Assignment Code
-var generateBtn = document.querySelector("#generate");
+
+
 
 // Write password to the #password input
 function writePassword() {
@@ -98,4 +108,3 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-*/ 
