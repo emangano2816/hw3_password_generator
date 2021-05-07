@@ -9,9 +9,9 @@ function passwordLengthCriteria() {
 
   if (lengthPrompt===null){
     alert("If you change your mind, click 'Generate Password' again!")
-  } else if (passwordLength >=8 && passwordLength <= 156){
+  } else if (passwordLength >=8 && passwordLength <= 128){
       passwordCharacterCriteria();  
-  } else if (!(passwordLength >=8 && passwordLength <= 156)){
+  } else if (!(passwordLength >=8 && passwordLength <= 128)){
       alert("Sorry, your selection does not meet password length requirements.  Please try again.");
   } 
 }
@@ -72,6 +72,15 @@ function passwordCharacterCriteria() {
   }
 }
 
+function generatePassword (passwordLength, passwordCharacterOptions) {
+  
+  const passwordArray = [];
+  for (let i=0; i<passwordLength; i++){
+    const characters = passwordCharacterOptions[Math.floor(Math.random() * passwordCharacterOptions.length)]
+    passwordArray.push(characters);
+  }
+  return passwordArray.join('');
+}
 
 
 /*
