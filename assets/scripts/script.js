@@ -2,7 +2,15 @@
 // Assignment Code
 let generateBtn = document.querySelector("#generate");  //Storing the button in a variable to call later
 let passwordLength;  //declaring variable to use in functions
-let passwordCharacterOptions=[]; //declaring variable to use in funcitons
+let passwordCharacterOptions; //declaring variable to use in funcitons
+//Creating variables that house all the possible character types
+let loCaseAlphas=['a','b','c','d','e','f','g','h','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+let upCaseAlphas=['A','B','C', 'D','E','F','G','H','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+let numbers=['0','1','2','3','4','5','6','7','8','9'];
+let symbols=['~','`','@','#','$','%','^','&','*','(',')','_','-','+','=','{','}','[',']','|',':',';','"','<','>',',','.','?','/'];
+let characters=[loCaseAlphas, upCaseAlphas, numbers, symbols];
+//Creating criteriaCounter to validate that at least 1 criteria has been selected
+ let criteriaCounter;
 
 
 //Function returns passwordLength. To be used when generating the password
@@ -13,6 +21,7 @@ function passwordLengthCriteria() {
   if (lengthPrompt===null){
     alert("If you change your mind, click 'Generate Password' again!");
   } else if (passwordLength >=8 && passwordLength <= 128){
+      // debugger;
       passwordCharacterCriteria();
     // console.log("Run passwordCharacterCriteria");  
   } else if (!(passwordLength >=8 && passwordLength <= 128)){
@@ -29,52 +38,17 @@ function passwordCharacterCriteria() {
   let includeUpcaseAlpha=confirm("Would you like to include upper case alphas in your password?");
   let includeNumbers=confirm("Would you like to include numbers in your password?");
   let includeSymbols=confirm("Would you like to include symbols in your password");
-  //Creating criteriaCounter to validate that at least 1 criteria has been selected
-  let criteriaCounter=0;
-  //Creating variables that house all the possible character types
-  let loCaseAlphas=['a','b','c','d','e','f','g','h','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-  let upCaseAlphas=['A','B','C', 'D','E','F','G','H','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-  let numbers=['0','1','2','3','4','5','6','7','8','9'];
-  let symbols=['~','`','@','#','$','%','^','&','*','(',')','_','-','+','=','{','}','[',']','|',':',';','"','<','>',',','.','?','/']
+  let includes=[includeLocaseAlpha, includeUpcaseAlpha, includeNumbers, includeSymbols];
+
+  criteriaCounter=0;                  //Setting to 0 so that it is reset after each run
+  passwordCharacterOptions=[];        //Setting to an empty array so it is reset after each run
 
   //Loading elements into the passwordCharacterOptions if the user has selected to include that character type
   //If user clicks 'OK' that character type is put into the array and the criteriaCounter is incremented by 1
   //If user clicks 'Cancel' that character type is not added to the array of options and the criteriaCounter stays the same
-  if (includeLocaseAlpha===true) {
-    criteriaCounter = ++criteriaCounter;
-    passwordCharacterOptions=passwordCharacterOptions.concat(loCaseAlphas);
-    console.log(criteriaCounter, passwordCharacterOptions);
-  } else {
-    criteriaCounter;
-    passwordCharacterOptions;
-    console.log(criteriaCounter, passwordCharacterOptions);
-  }
-  if (includeUpcaseAlpha===true) {
-    criteriaCounter = ++criteriaCounter;
-    passwordCharacterOptions=passwordCharacterOptions.concat(upCaseAlphas);
-    console.log(criteriaCounter, passwordCharacterOptions);
-  } else {
-    criteriaCounter;
-    passwordCharacterOptions;
-    console.log(criteriaCounter, passwordCharacterOptions);
-  }
-  if (includeNumbers===true) {
-    criteriaCounter = ++criteriaCounter;
-    passwordCharacterOptions=passwordCharacterOptions.concat(numbers);
-    console.log(criteriaCounter, passwordCharacterOptions);
-  } else {
-    criteriaCounter;
-    passwordCharacterOptions;
-    console.log(criteriaCounter, passwordCharacterOptions);
-  }
-  if (includeSymbols===true) {
-    criteriaCounter = ++criteriaCounter;
-    passwordCharacterOptions=passwordCharacterOptions.concat(symbols);
-    console.log(criteriaCounter, passwordCharacterOptions);
-  } else {
-    criteriaCounter;
-    passwordCharacterOptions;
-    console.log(criteriaCounter, passwordCharacterOptions);
+
+  for (var i=0; i<includes.length; i++) {
+    checkIncludes(includes[i],characters[i]);
   }
 
   console.log(criteriaCounter);
@@ -85,6 +59,14 @@ function passwordCharacterCriteria() {
     alert("Sorry, you must include at least 1 character type in your password.  Please try again.");
   } 
   return passwordCharacterOptions.length;
+}
+
+function checkIncludes(includeType, includeCharacters) {
+    if (includeType===true) {
+      criteriaCounter++;
+      passwordCharacterOptions=passwordCharacterOptions.concat(includeCharacters);
+      console.log(criteriaCounter, passwordCharacterOptions);
+    } 
 }
 
 //generatePassword returns a password using the passwordLength and passwordCharacterOptions determined by the user
