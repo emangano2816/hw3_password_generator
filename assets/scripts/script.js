@@ -15,6 +15,7 @@ let characters=[loCaseAlphas, upCaseAlphas, numbers, symbols];
 
 //Function returns passwordLength. To be used when generating the password
 function passwordLengthCriteria() {
+  let tryAgain;
   let lengthPrompt=prompt("Choose a password length between 8 and 156 characters.")
   passwordLength=Number(lengthPrompt); //converting string input to number to validate
 
@@ -42,6 +43,7 @@ function passwordCharacterCriteria() {
   let includeNumbers=confirm("Would you like to include numbers in your password?");
   let includeSymbols=confirm("Would you like to include symbols in your password");
   let includes=[includeLocaseAlpha, includeUpcaseAlpha, includeNumbers, includeSymbols];
+  let tryAgain_CharPrompts;
 
   criteriaCounter=0;                  //Setting to 0 so that it is reset after each run
   passwordCharacterOptions=[];        //Setting to an empty array so it is reset after each run
@@ -59,8 +61,10 @@ function passwordCharacterCriteria() {
   //Checking that at least 1 character type has been include
   //If the criteriaCounter is exactly equal to 0 then the user failed to select a charater type and will receive a message to start over
   if (criteriaCounter===0) {
-    alert("Sorry, you must include at least 1 character type in your password.  Please try again.");
-  } 
+    tryAgain_CharPrompts = confirm("Sorry, you must include at least 1 character type in your password.  Please try again.");
+  } if (tryAgain_CharPrompts) {
+    passwordCharacterCriteria();
+  }
   return passwordCharacterOptions.length;
 }
 
