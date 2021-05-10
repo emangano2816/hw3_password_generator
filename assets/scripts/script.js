@@ -25,7 +25,10 @@ function passwordLengthCriteria() {
       passwordCharacterCriteria();
     // console.log("Run passwordCharacterCriteria");  
   } else if (!(passwordLength >=8 && passwordLength <= 128)){
-      alert("Sorry, your selection does not meet password length requirements.  Please try again.");
+      tryAgain = confirm("Sorry, your selection does not meet password length requirements.  Please try again.");
+      if (tryAgain) {
+        passwordLengthCriteria();
+      };
   } 
   return passwordLength;
 }
