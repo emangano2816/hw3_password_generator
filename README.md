@@ -40,3 +40,6 @@ THEN the password is either displayed in an alert or written to the page
 
 ## Meeting Application Quality
 To make the user experience intuitive and easy to navigate alert, prompt, and confirmation pop-ups are used to communicate with the user regarding selections.  If selections result in the system not being able to generate a password an alert is used to communicate the reason behind the failure and the user is asked to try again.
+
+## Screenshot
+![screenshot](/assets/screentshot/PasswordGenerator.png)
